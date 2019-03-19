@@ -1,0 +1,24 @@
+// TODO: Sur un cell donne, si je peux pas tirer avec current arme, verifier si je peux utiliser d'autres armes et equiper
+// TODO: Changer que si besoin
+function equipSecondaryWeaponIfCannotUseMain(enemy) {
+	debug("Current weapon:" + canUseWeapon(enemy));
+	debug("Secondary weapon:" + canUseWeapon(getWeakWeapon(), enemy));
+	if(!canUseWeapon(enemy) && canUseWeapon(getWeakWeapon(), enemy)){
+		setWeapon(getWeakWeapon());
+	}
+}
+
+// Tirer le max de fois avec l'arme equipee
+function shootWhileICan(enemy) {
+	while (getTP() >= getWeaponCost(getWeapon()) && canUseWeapon(enemy)) {
+		useWeapon(enemy);
+	}
+}
+
+function getStrongWeapon() {
+	return arrayMax(getWeapons());
+}
+
+function getWeakWeapon() {
+	return arrayMin(getWeapons());
+}

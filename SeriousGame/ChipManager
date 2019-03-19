@@ -1,0 +1,11 @@
+function useSparkWhileICan(enemy) {
+	while (getTP() >= getChipCost(CHIP_SPARK) && canUseChip(CHIP_SPARK, enemy)) {
+		useChip(CHIP_SPARK, enemy);
+	}
+}
+
+function useBandage() {
+	if (getTP() >= getChipCost(CHIP_BANDAGE) && canUseChip(CHIP_BANDAGE, getLeek()) && getLife() < getTotalLife()) {
+		useChip(CHIP_BANDAGE, getLeek());
+	}
+}

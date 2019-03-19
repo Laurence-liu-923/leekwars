@@ -1,0 +1,21 @@
+// TODO: Choisir le point non atteignable par enemie le plus proche pour shooter
+function goToShootingSpot(weapon, enemy) {
+	var shortestDistance = 1000;
+	var closestCell = getCell(enemy);
+	var enemyWeapon = getWeapon(enemy);
+	var candidateSpotsToShoot = getCellsToUseWeapon(weapon, enemy);
+	var dangerousSpots = getWeaponEffectiveArea(enemyWeapon, closestCell);
+	arrayFilter(candidateSpotsToShoot, function(cell) {
+		!inArray(dangerousSpots, cell);
+	});
+	arrayIter(candidateSpotsToShoot, function(cell) {
+		if (getPathLength(getCell(), cell) < shortestDistance) {
+			shortestDistance = getPathLength(getCell(), cell);
+			closestCell = cell;
+		}
+	});
+	moveTowardCell(closestCell);
+}
+
+
+// Apres avoir tirer, sil me reste des PM, aller loin.

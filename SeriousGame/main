@@ -1,0 +1,20 @@
+include("MovementManager");
+include("WeaponManager");
+include("ChipManager");
+
+if (getWeapon() != getStrongWeapon()) {
+	setWeapon(getStrongWeapon());
+	debug("Main weapon " + getWeaponName(getStrongWeapon()));
+	debug("Secondary weapon " + getWeaponName(getWeakWeapon()));
+}
+
+// We get the nearest enemy
+var enemy = getNearestEnemy();
+
+// We move towards him
+useBandage();
+goToShootingSpot(getWeapon(),  enemy);
+equipSecondaryWeaponIfCannotUseMain(enemy);
+shootWhileICan(enemy);
+useSparkWhileICan(enemy);
+

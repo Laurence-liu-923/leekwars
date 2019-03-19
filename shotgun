@@ -1,0 +1,50 @@
+if (getWeapon() == null) {
+	equip();
+}
+var enemy = getNearestEnemy();
+moveToEnemy(enemy);
+
+
+useWeapon(enemy);
+useWeapon(enemy);
+useWeapon(enemy);
+
+function equip() {
+	setWeapon(WEAPON_SHOTGUN);  // Warning: costs 1 TP
+}
+
+function moveToEnemyLine(target) {
+	var myPosition = getCell();
+	var enemyPosition = getCell(target);
+	var distanceX = abs(getCellX(myPosition) - getCellX(enemyPosition));
+	var distanceY = abs(getCellY(myPosition) - getCellY(enemyPosition));
+	if (distanceY >= distanceX) {
+		moveToSameX(myPosition, enemyPosition);
+	} else {
+		moveToSameY(myPosition, enemyPosition);
+	}
+}
+
+function isOnSameLineAsEnemy(target) {
+	var myPosition = getCell();
+	var enemyPosition = getCell(target);
+	return getCellX(myPosition) == getCellX(enemyPosition) || getCellY(myPosition) == getCellY(enemyPosition);
+}
+
+function moveToEnemy(target) {
+	if (isOnSameLineAsEnemy(target)) {
+		moveToward(target);
+	} else {
+		moveToEnemyLine(target);
+	}
+}
+
+function moveToSameX(cell1, cell2) {
+	var tempCell = getCellFromXY(getCellX(cell2), getCellY(cell1));
+	moveTowardCell(tempCell);
+}
+
+function moveToSameY(cell1, cell2) {
+	var tempCell = getCellFromXY(getCellX(cell1), getCellY(cell2));
+	moveTowardCell(tempCell);
+}
